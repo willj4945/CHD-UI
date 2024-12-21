@@ -5,9 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyber Health Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            height: calc(100vh - 50px);
+            transition: grid-template-columns 0.3s ease;
+        }
+
+        nav {
+            background-color: #161b22;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+
+        nav.closed {
+            transform: translateX(-100%);
+        }
+
+        .toggle-sidebar {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                grid-template-columns: auto;
+            }
+
+            nav {
+                position: absolute;
+                height: 100%;
+                z-index: 100;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
+        <button class="toggle-sidebar">☰</button>
         <h1>Cyber Health Dashboard</h1>
         <div class="action-buttons">
             <button>New</button>
@@ -73,5 +125,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const sidebar = document.querySelector('nav');
+        const toggleButton = document.querySelector('.toggle-sidebar');
+
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('closed');
+        });
+    </script>
 </body>
 </html>
